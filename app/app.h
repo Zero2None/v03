@@ -49,8 +49,7 @@ namespace vsite::oop::v3
 	private:
 		double* data_=nullptr;
 		uint32_t size_=0;
-		uint32_t capacity_=0;
-
+		
 	};
 
 }

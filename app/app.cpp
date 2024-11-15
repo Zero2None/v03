@@ -53,25 +53,24 @@ namespace vsite::oop::v3
 
     array::array(){}
 
-    array::array(uint32_t size, double value) : size_(size), capacity_(size) {
-        data_ = new double[capacity_];
+    array::array(uint32_t size, double value) : size_(size) {
+        data_ = new double[size_];
         for (uint32_t k = 0; k < size_; ++k) {
             data_[k] = value;
         }
     }
 
-    array::array(const array& other) : size_(other.size_), capacity_(other.capacity_) {
-        data_ = new double[capacity_];
+    array::array(const array& other) : size_(other.size_) {
+        data_ = new double[size_];
         for (uint32_t l = 0; l < size_; ++l) {
             data_[l] = other.data_[l];
         }
     }
 
-    array::array(array&& other) : data_(other.data_), size_(other.size_), capacity_(other.capacity_) {
+    array::array(array&& other) : data_(other.data_), size_(other.size_) {
         other.data_ = nullptr;
         other.size_ = 0;
-        other.capacity_ = 0;
-    }
+        }
 
     array::~array() {
         delete[] data_;
@@ -89,15 +88,8 @@ namespace vsite::oop::v3
     }
 
     void array::push_back(double value) {
-        if (size_ == capacity_) {
-            if (capacity_ == 0) {
-                capacity_ = 1;
-            }
-            else {
-                ++capacity_;
-            }
-
-            double* data2_ = new double[capacity_];
+       
+            double* data2_ = new double[size_+1];
 
             for (uint32_t m = 0; m < size_; ++m) {
                 data2_[m] = data_[m];
@@ -105,7 +97,7 @@ namespace vsite::oop::v3
 
             delete[] data_;
             data_ = data2_;
-        }
+        
 
         data_[size_] = value;
         ++size_;
